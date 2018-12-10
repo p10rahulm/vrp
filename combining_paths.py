@@ -28,7 +28,7 @@ def initialize_paths(distances,capacities):
     distance_saved_on_merge = np.zeros((len(initial_paths), len(initial_paths)), dtype=float)
     for i in range(0, len(initial_paths)):
         for j in range(i + 1, len(initial_paths)):
-            distance_saved_on_merge[i, j] = round(combine_paths(initial_paths[i], initial_paths[j], distances,capacities)[1], 0)
+            distance_saved_on_merge[i, j] = round(combine_paths(initial_paths[i], initial_paths[j], distances,capacities)[1], 4)
     return((initial_paths,distance_saved_on_merge,capacities_required))
 
 
@@ -41,7 +41,7 @@ def merge_two_paths(paths,distances_saved_matrix,paths_to_merge,distances,capaci
             new_paths.append(paths[i])
     new_ds_matrix = np.zeros((len(paths) - 1, len(paths) - 1), dtype=float)
     for i in range(1, len(new_paths)):
-        new_ds_matrix[0, i] = round(combine_paths(new_paths[0], new_paths[i], distances,capacities)[1], 0)
+        new_ds_matrix[0, i] = round(combine_paths(new_paths[0], new_paths[i], distances,capacities)[1], 4)
     mask = np.ones(len(distances_saved_matrix), dtype=bool)
     mask[[paths_to_merge]] = False
     new_ds_matrix[1:,1:] = distances_saved_matrix[mask, :][:, mask]
